@@ -1,3 +1,83 @@
+# def mid_circle(xc,yc):
+#     r=int(input("enter radius:"))
+#     x=0
+#     y=r
+#     d=1-r
+#     while(x<y):
+#         x+=1
+#         print(x,y)
+#         if(d<0):
+#                 d+=2*x+1
+#         else:
+#                 y-=1
+#                 d+=2*x-2*y+1
+        
+
+# mid_circle(100,100)
+
+
+
+import pygame
+import sys
+
+# Initialize Pygame
+pygame.init()
+
+# Set up the screen
+WIDTH, HEIGHT = 800, 800
+screen = pygame.display.set_mode((WIDTH, HEIGHT))
+pygame.display.set_caption("Midpoint Circle Algorithm")
+
+# Set up colors
+BLACK = (0, 0, 0)
+WHITE = (255, 0, 0)
+
+
+# Function to draw the circle using midpoint algorithm
+def mid_circle(xc,yc,r):
+   
+    x=0
+    y=r
+    d=1-r
+    while(x<y):
+        x+=1
+        screen.set_at((x+xc,y+yc),WHITE)
+        screen.set_at((y+xc,x+yc),WHITE)
+        screen.set_at((y+xc,-x+yc),WHITE)
+        screen.set_at((x+xc,-y+yc),WHITE)
+        screen.set_at((-x+xc,-y+yc),WHITE)
+        screen.set_at((-y+xc,-x+yc),WHITE)
+        screen.set_at((-y+xc,x+yc),WHITE)
+        screen.set_at((-x+xc,y+yc),WHITE)
+
+        if(d<0):
+                d+=2*x+1
+        else:
+                y-=1
+                d+=2*x-2*y+1
+
+def mid_circle1(xc,yc,r):
+   
+    x=0
+    y=r
+    d=1-r
+    while(x<y):
+        x+=1
+        screen.set_at((x+xc,y+yc),WHITE)
+        screen.set_at((y+xc,x+yc),WHITE)
+
+        screen.set_at((-y+xc,x+yc),WHITE)
+        screen.set_at((-x+xc,y+yc),WHITE)
+
+
+        if(d<0):
+                d+=2*x+1
+        else:
+                y-=1
+                d+=2*x-2*y+1
+
+
+                
 def BLS(x1,y1,x2,y2):
     dx=abs(x2-x1)
     dy=abs(y2-y1)
@@ -10,7 +90,7 @@ def BLS(x1,y1,x2,y2):
         ly=1
     else:
         ly=-1
-    print(x1,y1) 
+    screen.set_at((x1,y1),WHITE)  
     
     
     if(dx>dy):    
@@ -24,7 +104,7 @@ def BLS(x1,y1,x2,y2):
                 x1+=lx
                 y1+=ly  
                 pk+=2*dy -2*dx 
-            print(x1,y1)  
+            screen.set_at((x1,y1),WHITE)   
      
     else:
         pk=2*dx-dy
@@ -37,6 +117,33 @@ def BLS(x1,y1,x2,y2):
                 x1+=lx
                 y1+=ly  
                 pk+=2*dx -2*dy 
-            print(x1,y1)                          
+            screen.set_at((x1,y1),WHITE)  
 
-BLS(10,20,30,40)        
+
+# Main loop
+def main():
+    running = True
+    while running:
+        for event in pygame.event.get():
+            if event.type == pygame.QUIT:
+                running = False
+        screen.fill(BLACK)
+        
+        mid_circle(400,150,150)
+        mid_circle(500,100,30)
+        mid_circle(300,100,30)
+        mid_circle1(400,200,60)
+        BLS(400,300,400,600)
+        BLS(400,350,200,400)
+        BLS(400,350,600,400)
+        BLS(400,600,600,750)
+        BLS(400,600,200,750)
+
+        
+        pygame.display.flip()
+
+    pygame.quit()
+    sys.exit()
+
+if __name__ == "__main__":
+    main()
